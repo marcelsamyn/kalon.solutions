@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@font-face {
+	font-family: "IBM Plex Sans";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("https://fonts.gstatic.com/s/ibmplexsans/v19/zYXgKVElMYYaJe8bpLHnCwDKhdHeFaxOedc.woff2")
+		format("woff2");
+}
+
+@font-face {
+	font-family: "IBM Plex Sans";
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url("https://fonts.gstatic.com/s/ibmplexsans/v19/zYX9KVElMYYaJe8bpLHnCwDKjSL9AIFsdP3pBms.woff2")
+		format("woff2");
+}
+
+@font-face {
+	font-family: "Lora";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("https://fonts.gstatic.com/s/lora/v35/0QI6MX1D_JOuGQbT0gvTJPa787weuxJBkq0.woff2")
+		format("woff2");
+}
+
+@font-face {
+	font-family: "Lora";
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url("https://fonts.gstatic.com/s/lora/v35/0QI6MX1D_JOuGQbT0gvTJPa787z6vBJBkq0.woff2")
+		format("woff2");
+}
+
+@theme {
+	--font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+	--font-serif: "Lora", ui-serif, Georgia, serif;
+	--color-blue-50: oklch(0.964 0.016 253.9);
+	--color-blue-100: oklch(0.93 0.03 249.68);
+	--color-blue-200: oklch(0.851 0.069 246.65);
+	--color-blue-300: oklch(0.781 0.107 241.92);
+	--color-blue-400: oklch(0.711 0.133 238.95);
+	--color-blue-500: oklch(0.634 0.118 239.32);
+	--color-blue-600: oklch(0.566 0.105 238.66);
+	--color-blue-700: oklch(0.494 0.092 239.03);
+	--color-blue-800: oklch(0.377 0.071 239.41);
+	--color-blue-900: oklch(0.257 0.048 239.89);
+	--color-blue-950: oklch(0.196 0.037 240.31);
+
+	--color-orange-50: oklch(0.966 0.015 44.25);
+	--color-orange-100: oklch(0.933 0.03 44.07);
+	--color-orange-200: oklch(0.86 0.07 48.81);
+	--color-orange-300: oklch(0.793 0.115 51.89);
+	--color-orange-400: oklch(0.727 0.143 56.82);
+	--color-orange-500: oklch(0.655 0.129 56.78);
+	--color-orange-600: oklch(0.577 0.113 56.71);
+	--color-orange-700: oklch(0.508 0.1 56.74);
+	--color-orange-800: oklch(0.386 0.076 56.58);
+	--color-orange-900: oklch(0.261 0.052 56.59);
+	--color-orange-950: oklch(0.2 0.039 56.94);
+
+	--color-gray-50: oklch(0.957 0.006 59.72);
+	--color-gray-100: oklch(0.923 0.01 58.25);
+	--color-gray-200: oklch(0.838 0.027 67.45);
+	--color-gray-300: oklch(0.761 0.031 67.34);
+	--color-gray-400: oklch(0.682 0.027 65.4);
+	--color-gray-500: oklch(0.598 0.024 65.08);
+	--color-gray-600: oklch(0.51 0.02 67.35);
+	--color-gray-700: oklch(0.414 0.017 67.33);
+	--color-gray-800: oklch(0.318 0.012 62.19);
+	--color-gray-900: oklch(0.234 0.01 67.32);
+	--color-gray-950: oklch(0.176 0.006 55.94);
+
+}

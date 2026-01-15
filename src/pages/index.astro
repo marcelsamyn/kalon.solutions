@@ -1,11 +1,70 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-	<Welcome />
+	<main class="mx-auto max-w-2xl px-6 py-24 md:py-32 lg:py-40">
+		<!-- Hero -->
+		<header class="mb-20 md:mb-28">
+			<h1 class="font-serif text-4xl font-semibold tracking-tight text-blue-800 md:text-5xl">
+				Kalon Solutions
+			</h1>
+			<p class="mt-6 text-xl leading-relaxed text-gray-700 md:text-2xl md:leading-relaxed">
+				Engineer. Designer. Speaker.<br />
+				I build things that change how people feel.
+			</p>
+			<p class="mt-4 text-gray-500">
+			<a href="https://samyn.co" target="_blank"
+
+					class="text-blue-600 underline decoration-blue-300 underline-offset-2 transition-colors hover:text-orange-600 hover:decoration-orange-300"
+			>
+			Marcel Samyn
+			</a>
+			</p>
+		</header>
+
+		<!-- About -->
+		<section class="mb-20 md:mb-28">
+			<h2 class="font-serif text-2xl font-semibold text-blue-700">What I do</h2>
+			<div class="mt-6 space-y-4 text-lg leading-relaxed text-gray-700">
+				<p>
+					I help teams build software that matters—products with clarity of purpose and craft in
+					execution. My work spans product development, technical architecture, and the human
+					side of how we create and use technology.
+				</p>
+				<p>
+					I also teach and speak about software, design, and the intersection of technology
+					with psychology and presence. If you're looking for someone who cares as much about
+					how something feels as how it works, we should talk.
+				</p>
+			</div>
+		</section>
+
+		<!-- Contact -->
+		<section>
+			<h2 class="font-serif text-2xl font-semibold text-blue-700">Get in touch</h2>
+			<p class="mt-6 text-lg text-gray-700">
+				<a
+					href="mailto:hello@kalon.solutions"
+					class="text-blue-600 underline decoration-blue-300 underline-offset-2 transition-colors hover:text-orange-600 hover:decoration-orange-300"
+				>
+					hello@kalon.solutions
+				</a>
+			</p>
+		</section>
+	</main>
+
+	<!-- Footer -->
+	<footer class="border-t border-gray-200 bg-gray-100/50">
+		<div class="mx-auto max-w-2xl px-6 py-10">
+			<div class="space-y-1 text-sm text-gray-500">
+				<p class="font-medium text-gray-600">Kalon Solutions BV</p>
+				<p>VAT: BE 1030.791.482</p>
+				<p>Hundelgemsesteenweg 1066, 9820 Merelbeke, Belgium</p>
+			</div>
+			<p class="mt-6 text-xs text-gray-400">
+				&copy; {new Date().getFullYear()} Kalon Solutions BV. All rights reserved.
+			</p>
+		</div>
+	</footer>
 </Layout>
