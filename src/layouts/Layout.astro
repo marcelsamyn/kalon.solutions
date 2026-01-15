@@ -87,5 +87,11 @@ const { title = "Kalon Solutions" } = Astro.props;
 		<div class="relative">
 			<slot />
 		</div>
+		<!-- Hidden form for Netlify detection -->
+		<form name="contact" data-netlify="true" hidden>
+			<input type="text" name="name" />
+			<input type="email" name="email" />
+			<textarea name="message"></textarea>
+		</form>
 	</body>
 </html>

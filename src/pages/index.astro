@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { ContactButton } from "../components/ContactButton";
 ---
 
 <Layout>
@@ -43,14 +44,9 @@ import Layout from "../layouts/Layout.astro";
 		<!-- Contact -->
 		<section>
 			<h2 class="font-serif text-2xl font-semibold text-blue-700">Get in touch</h2>
-			<p class="mt-6 text-lg text-gray-700">
-				<a
-					href="mailto:hello@kalon.solutions"
-					class="text-blue-600 underline decoration-blue-300 underline-offset-2 transition-colors hover:text-orange-600 hover:decoration-orange-300"
-				>
-					hello@kalon.solutions
-				</a>
-			</p>
+			<div class="mt-8">
+				<ContactButton client:idle />
+			</div>
 		</section>
 	</main>
 
