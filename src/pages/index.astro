@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Footer from "../components/Footer.astro";
 import { ContactButton } from "../components/ContactButton";
 ---
 
@@ -50,17 +51,5 @@ import { ContactButton } from "../components/ContactButton";
 		</section>
 	</main>
 
-	<!-- Footer -->
-	<footer class="border-t border-gray-200 bg-gray-100/50">
-		<div class="mx-auto max-w-2xl px-6 py-10">
-			<div class="space-y-1 text-sm text-gray-500">
-				<p class="font-medium text-gray-600">Kalon Solutions BV</p>
-				<p>VAT: BE 1030.791.482</p>
-				<p>Hundelgemsesteenweg 1066, 9820 Merelbeke, Belgium</p>
-			</div>
-			<p class="mt-6 text-xs text-gray-400">
-				&copy; {new Date().getFullYear()} Kalon Solutions BV. All rights reserved.
-			</p>
-		</div>
-	</footer>
+	<Footer />
 </Layout>

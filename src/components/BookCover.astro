@@ -1,0 +1,150 @@
+---
+interface Props {
+	title: string;
+	subtitle: string;
+	author: string;
+	class?: string;
+}
+
+const { title, subtitle, author, class: className = "" } = Astro.props;
+
+// Greedy word-wrap so long subtitles flow onto multiple SVG lines.
+const SUBTITLE_MAX_CHARS_PER_LINE = 28;
+function wrapText(text: string, maxChars: number): string[] {
+	const words = text.split(/\s+/).filter(Boolean);
+	const lines: string[] = [];
+	let current = "";
+	for (const word of words) {
+		const candidate = current ? `${current} ${word}` : word;
+		if (candidate.length <= maxChars) {
+			current = candidate;
+		} else {
+			if (current) lines.push(current);
+			current = word;
+		}
+	}
+	if (current) lines.push(current);
+	return lines;
+}
+const subtitleLines = wrapText(subtitle, SUBTITLE_MAX_CHARS_PER_LINE);
+const SUBTITLE_LINE_HEIGHT = 24;
+const SUBTITLE_BLOCK_TOP = 348;
+
+// Center the title vertically when subtitle wraps, so the cover stays balanced.
+const TITLE_TOP = 232;
+---
+
+<svg
+	xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 0 400 600"
+	role="img"
+	aria-label={`${title} book cover`}
+	class={className}
+>
+	<defs>
+		<linearGradient id="bookcover-bg" x1="0" y1="0" x2="1" y2="1">
+			<stop offset="0%" stop-color="#1c2540" />
+			<stop offset="55%" stop-color="#131a2f" />
+			<stop offset="100%" stop-color="#0a1020" />
+		</linearGradient>
+		<linearGradient id="bookcover-spine" x1="0" y1="0" x2="1" y2="0">
+			<stop offset="0%" stop-color="#000" stop-opacity="0.35" />
+			<stop offset="6%" stop-color="#000" stop-opacity="0" />
+		</linearGradient>
+		<radialGradient id="bookcover-glow" cx="0.3" cy="0.2" r="0.85">
+			<stop offset="0%" stop-color="#c9a574" stop-opacity="0.18" />
+			<stop offset="60%" stop-color="#c9a574" stop-opacity="0" />
+		</radialGradient>
+		<filter id="bookcover-grain">
+			<feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"></feTurbulence>
+			<feColorMatrix
+				values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.06 0"
+			></feColorMatrix>
+		</filter>
+	</defs>
+
+	<!-- Cover -->
+	<rect width="400" height="600" fill="url(#bookcover-bg)"></rect>
+	<rect width="400" height="600" fill="url(#bookcover-glow)"></rect>
+	<rect width="400" height="600" filter="url(#bookcover-grain)"></rect>
+	<rect width="400" height="600" fill="url(#bookcover-spine)"></rect>
+
+	<!-- Inner border -->
+	<rect
+		x="24"
+		y="24"
+		width="352"
+		height="552"
+		fill="none"
+		stroke="#c9a574"
+		stroke-opacity="0.35"
+		stroke-width="1"
+	></rect>
+
+	<!-- Top mark -->
+	<line
+		x1="180"
+		y1="92"
+		x2="220"
+		y2="92"
+		stroke="#c9a574"
+		stroke-opacity="0.6"
+		stroke-width="1"
+	></line>
+
+	<!-- Title -->
+	<text
+		x="200"
+		y={TITLE_TOP}
+		text-anchor="middle"
+		font-family="Lora, Georgia, serif"
+		font-weight="600"
+		font-size="46"
+		fill="#f0e6d0"
+		letter-spacing="0.5"
+	>
+		{title.split(/\s+/).map((word, i) => (
+			<tspan x="200" dy={i === 0 ? 0 : 56}>{word}</tspan>
+		))}
+	</text>
+
+	<!-- Divider -->
+	<line
+		x1="170"
+		y1={TITLE_TOP + 86}
+		x2="230"
+		y2={TITLE_TOP + 86}
+		stroke="#c9a574"
+		stroke-opacity="0.55"
+		stroke-width="1"
+	></line>
+
+	<!-- Subtitle (wraps to multiple lines) -->
+	<text
+		x="200"
+		y={SUBTITLE_BLOCK_TOP}
+		text-anchor="middle"
+		font-family="Lora, Georgia, serif"
+		font-style="italic"
+		font-size="17"
+		fill="#d9c8a3"
+		letter-spacing="0.3"
+	>
+		{subtitleLines.map((line, i) => (
+			<tspan x="200" dy={i === 0 ? 0 : SUBTITLE_LINE_HEIGHT}>{line}</tspan>
+		))}
+	</text>
+
+	<!-- Author -->
+	<text
+		x="200"
+		y="538"
+		text-anchor="middle"
+		font-family="Lora, Georgia, serif"
+		font-size="14"
+		fill="#c9a574"
+		letter-spacing="3"
+	>
+		{author.toUpperCase()}
+	</text>
+</svg>

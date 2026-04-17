@@ -1,0 +1,230 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Footer from "../components/Footer.astro";
+import BookCover from "../components/BookCover.astro";
+import { FollowAlongForm } from "../components/FollowAlongForm";
+
+// TODO: replace these placeholders before launch.
+const STRIPE_PAYMENT_URL = "https://buy.stripe.com/6oU14n0Fl0cr4k72BMbfO09";
+const MAILERLITE_FORM_ACTION =
+  "https://assets.mailerlite.com/jsonp/124930/forms/184979158372189643/subscribe";
+const SUBTITLE = "How the solution to all our problems becomes the problem";
+const RELEASE_DATE_LABEL = "September 15, 2026";
+const PRICE_LABEL = "€16";
+
+const description =
+  "Sacred Struggle — a forthcoming book by Marcel Samyn on AI, ease, and the kinds of struggle that make us human. Pre-order for €16; first version delivered " +
+  RELEASE_DATE_LABEL +
+  ".";
+---
+
+<Layout
+  title="Sacred Struggle — Pre-order"
+  description={description}
+  ogImage="/book-cover.svg"
+  ogType="book"
+>
+  <main class="mx-auto max-w-2xl px-6 py-20 md:py-28">
+    <!-- Hero -->
+    <header class="mb-20 text-center md:mb-28">
+      <!-- Book mockup. Swap BookCover for an <img> of the real artwork once available; keep /book-cover.svg in sync as the og:image. -->
+      <div class="mx-auto mb-12 w-56 md:w-72">
+        <BookCover
+          title="Sacred Struggle"
+          subtitle={SUBTITLE}
+          author="Marcel Samyn"
+          class="h-auto w-full -rotate-2 rounded-sm shadow-[0_2px_4px_rgba(10,15,30,0.15),0_20px_40px_-12px_rgba(10,15,30,0.55),0_40px_80px_-30px_rgba(10,15,30,0.4)] ring-1 ring-black/20"
+        />
+      </div>
+
+      <p
+        class="mb-4 font-sans text-xs uppercase tracking-[0.22em] text-orange-700"
+      >
+        Pre-order
+      </p>
+      <h1
+        class="font-serif text-5xl font-semibold tracking-tight text-blue-800 md:text-6xl"
+      >
+        Sacred Struggle
+      </h1>
+      <p
+        class="mt-4 font-serif text-xl italic text-gray-600 md:text-2xl text-balance"
+      >
+        {SUBTITLE}
+      </p>
+      <p class="mt-6 text-sm text-gray-500">
+        First version delivered {RELEASE_DATE_LABEL}
+      </p>
+
+      <div class="mt-10 flex flex-col items-center gap-3">
+        <a
+          href={STRIPE_PAYMENT_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group inline-flex items-center gap-3 rounded-full border border-orange-700/40 bg-orange-500 px-7 py-3.5 font-medium text-white shadow-[inset_0_1px_1px_var(--color-orange-300)/50%,inset_0_-1px_2px_var(--color-orange-800)/30%,0_4px_16px_var(--color-orange-500)/30%] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[inset_0_2px_2px_var(--color-orange-200)/60%,inset_0_-1px_2px_var(--color-orange-800)/30%,0_8px_24px_var(--color-orange-400)/40%]"
+        >
+          <span>Pre-order &mdash; {PRICE_LABEL}</span>
+          <span
+            class="transition-transform duration-300 group-hover:translate-x-1"
+            >→</span
+          >
+        </a>
+        <p class="text-sm text-gray-500">
+          PDF + ePub. All future versions included.
+        </p>
+      </div>
+    </header>
+
+    <!-- The hook -->
+    <section class="mb-20 md:mb-28">
+      <blockquote
+        class="border-l-2 border-orange-300 pl-6 font-serif text-2xl leading-snug text-blue-800 md:text-3xl md:leading-snug"
+      >
+        When AI takes over our work, life and love&mdash;will we be happier?
+      </blockquote>
+    </section>
+
+    <!-- What the book is about -->
+    <section class="mb-20 md:mb-28">
+      <h2 class="font-serif text-2xl font-semibold text-blue-700">
+        About the book
+      </h2>
+      <div class="mt-6 space-y-5 text-lg leading-relaxed text-gray-700">
+        <p>
+          The world is racing towards a giant leap in comfort, abundance and
+          pleasure. AI promises to solve our problems faster and better than
+          ever before, and all signs point to a near future where it does. But
+          what if ease is exactly what is making us unhappy?
+        </p>
+        <p>
+          When agriculture took away our need for physical effort, we eventually
+          had to consciously stress our bodies through sport to stay healthy.
+          Now, with AI arriving for our minds, we&rsquo;ll have to do the same.
+          The struggles we are so motivated to remove are precisely what give
+          our lives meaning.
+        </p>
+        <p>
+          You&rsquo;ll come away understanding large language models from the
+          inside out&mdash;no technical background needed&mdash;and the latest
+          neuroscience of happiness. You&rsquo;ll see where AI helps, where it
+          hurts, and how the technology (and our society) should work if we want
+          to move toward greater fulfillment, not away from it.
+        </p>
+      </div>
+    </section>
+
+    <!-- What you get -->
+    <section class="mb-20 md:mb-28">
+      <h2 class="font-serif text-2xl font-semibold text-blue-700">
+        What you get
+      </h2>
+      <ul class="mt-6 space-y-3 text-lg text-gray-700">
+        <li class="flex gap-3">
+          <span
+            class="mt-3 h-1 w-1 shrink-0 rounded-full bg-orange-400"
+            aria-hidden="true"></span>
+          <span
+            >The full book in <strong class="font-medium text-gray-900"
+              >PDF and ePub</strong
+            >, sent to your inbox.</span
+          >
+        </li>
+        <li class="flex gap-3">
+          <span
+            class="mt-3 h-1 w-1 shrink-0 rounded-full bg-orange-400"
+            aria-hidden="true"></span>
+          <span
+            ><strong class="font-medium text-gray-900"
+              >Every future version</strong
+            >, free, forever&mdash;not just the first draft.</span
+          >
+        </li>
+        <li class="flex gap-3">
+          <span
+            class="mt-3 h-1 w-1 shrink-0 rounded-full bg-orange-400"
+            aria-hidden="true"></span>
+          <span
+            >First version on <strong class="font-medium text-gray-900"
+              >{RELEASE_DATE_LABEL}</strong
+            >.</span
+          >
+        </li>
+      </ul>
+    </section>
+
+    <!-- The deadline promise -->
+    <section class="mb-20 md:mb-28">
+      <h2 class="font-serif text-2xl font-semibold text-blue-700">
+        My promise
+      </h2>
+      <div class="mt-6 space-y-4 text-lg leading-relaxed text-gray-700">
+        <p>
+          If the first version isn&rsquo;t in your inbox by <strong
+            class="font-medium text-gray-900">{RELEASE_DATE_LABEL}</strong
+          >, I refund you <strong class="font-medium text-gray-900"
+            >twice</strong
+          > what you paid. Automatically.
+        </p>
+        <p class="text-base text-gray-500">
+          I&rsquo;m putting real skin in the game so I keep moving even when the
+          writing gets hard. The first version doesn&rsquo;t need to be the
+          final version&mdash;it just needs to be a real book in your hands by
+          then.
+        </p>
+      </div>
+    </section>
+
+    <!-- CTA repeat -->
+    <section class="mb-20 flex flex-col items-center gap-3 md:mb-28">
+      <a
+        href={STRIPE_PAYMENT_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group inline-flex items-center gap-3 rounded-full border border-orange-700/40 bg-orange-500 px-7 py-3.5 font-medium text-white shadow-[inset_0_1px_1px_var(--color-orange-300)/50%,inset_0_-1px_2px_var(--color-orange-800)/30%,0_4px_16px_var(--color-orange-500)/30%] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[inset_0_2px_2px_var(--color-orange-200)/60%,inset_0_-1px_2px_var(--color-orange-800)/30%,0_8px_24px_var(--color-orange-400)/40%]"
+      >
+        <span>Pre-order &mdash; {PRICE_LABEL}</span>
+        <span
+          class="transition-transform duration-300 group-hover:translate-x-1"
+          >→</span
+        >
+      </a>
+      <p class="text-sm text-gray-500">Secure checkout via Stripe.</p>
+    </section>
+
+    <!-- Email capture for non-buyers -->
+    <section class="mb-20 md:mb-28">
+      <h2 class="font-serif text-2xl font-semibold text-blue-700">
+        Just want to follow along?
+      </h2>
+      <p class="mt-4 text-lg leading-relaxed text-gray-700">
+        No pressure. Drop your email and I&rsquo;ll send occasional updates as
+        the book takes shape&mdash;a chapter excerpt now and then, no spam.
+      </p>
+      <FollowAlongForm
+        action={MAILERLITE_FORM_ACTION}
+        contactEmail="marcel@samyn.co"
+        client:visible
+      />
+    </section>
+
+    <!-- About the author -->
+    <section>
+      <h2 class="font-serif text-2xl font-semibold text-blue-700">
+        About the author
+      </h2>
+      <p class="mt-6 text-lg leading-relaxed text-gray-700">
+        I&rsquo;m <a
+          href="https://samyn.co"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-blue-600 underline decoration-blue-300 underline-offset-2 transition-colors hover:text-orange-600 hover:decoration-orange-300"
+          >Marcel Samyn</a
+        >&mdash;engineer, designer, and speaker. I build things that change how
+        people feel, and I write at the intersection of technology, psychology,
+        and what it means to live well.
+      </p>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

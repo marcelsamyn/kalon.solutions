@@ -1,0 +1,52 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Footer from "../../components/Footer.astro";
+
+const RELEASE_DATE_LABEL = "September 15, 2026";
+---
+
+<Layout
+	title="You're in — Sacred Struggle"
+	description="Pre-order confirmation for Sacred Struggle by Marcel Samyn."
+>
+	<main class="mx-auto max-w-2xl px-6 py-24 md:py-32 lg:py-40">
+		<header class="mb-12">
+			<p class="mb-4 font-sans text-xs uppercase tracking-[0.22em] text-orange-700">
+				Pre-order confirmed
+			</p>
+			<h1 class="font-serif text-4xl font-semibold tracking-tight text-blue-800 md:text-5xl">
+				You&rsquo;re in.
+			</h1>
+		</header>
+
+		<section class="space-y-5 text-lg leading-relaxed text-gray-700">
+			<p>
+				Thank you. Truly.
+			</p>
+			<p>
+				The first version of <em class="font-serif">Sacred Struggle</em>&mdash;in PDF and
+				ePub&mdash;will land in your inbox on
+				<strong class="font-medium text-gray-900">{RELEASE_DATE_LABEL}</strong>.
+				Every future version after that comes to you free, automatically.
+			</p>
+			<p class="text-base text-gray-500">
+				I&rsquo;ll be sending from <span class="font-mono text-gray-700">marcel@samyn.co</span>&mdash;please
+				add it to your contacts so it doesn&rsquo;t get lost in spam.
+			</p>
+			<p class="text-base text-gray-500">
+				If anything looks off, just reply to your Stripe receipt or email me directly.
+			</p>
+		</section>
+
+		<div class="mt-16">
+			<a
+				href="/"
+				class="text-blue-600 underline decoration-blue-300 underline-offset-2 transition-colors hover:text-orange-600 hover:decoration-orange-300"
+			>
+				← Back to kalon.solutions
+			</a>
+		</div>
+	</main>
+
+	<Footer />
+</Layout>

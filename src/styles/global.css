@@ -32,7 +32,16 @@
 	font-style: normal;
 	font-weight: 600;
 	font-display: swap;
-	src: url("https://fonts.gstatic.com/s/lora/v35/0QI6MX1D_JOuGQbT0gvTJPa787z6vBJBkq0.woff2")
+	src: url("https://fonts.gstatic.com/s/lora/v37/0QIvMX1D_JOuMwr7I_FMl_E.woff2")
+		format("woff2");
+}
+
+@font-face {
+	font-family: "Lora";
+	font-style: italic;
+	font-weight: 400;
+	font-display: swap;
+	src: url("https://fonts.gstatic.com/s/lora/v37/0QIhMX1D_JOuMw_LIftLtfOm8w.woff2")
 		format("woff2");
 }
 

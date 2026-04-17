@@ -3,9 +3,22 @@ import "../styles/global.css";
 
 interface Props {
 	title?: string;
+	description?: string;
+	ogImage?: string;
+	ogType?: "website" | "book" | "article";
 }
 
-const { title = "Kalon Solutions" } = Astro.props;
+const {
+	title = "Kalon Solutions",
+	description,
+	ogImage,
+	ogType = "website",
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
+const absoluteOgImage = ogImage
+	? new URL(ogImage, Astro.site ?? Astro.url).toString()
+	: undefined;
 ---
 
 <!doctype html>
@@ -16,6 +29,19 @@ const { title = "Kalon Solutions" } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		{description && <meta name="description" content={description} />}
+		<link rel="canonical" href={canonicalUrl} />
+
+		<meta property="og:type" content={ogType} />
+		<meta property="og:title" content={title} />
+		<meta property="og:url" content={canonicalUrl} />
+		{description && <meta property="og:description" content={description} />}
+		{absoluteOgImage && <meta property="og:image" content={absoluteOgImage} />}
+
+		<meta name="twitter:card" content={absoluteOgImage ? "summary_large_image" : "summary"} />
+		<meta name="twitter:title" content={title} />
+		{description && <meta name="twitter:description" content={description} />}
+		{absoluteOgImage && <meta name="twitter:image" content={absoluteOgImage} />}
 	</head>
 	<body
 		class="min-h-screen bg-gray-50 font-sans text-gray-900 antialiased selection:bg-blue-200"
