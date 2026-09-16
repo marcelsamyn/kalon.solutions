@@ -28,7 +28,7 @@ export const FollowAlongForm = component$<Props>(({ action, contactEmail }) => {
 	if (status.value === "success") {
 		return (
 			<p class="mt-6 text-base text-blue-700">
-				Thank you. I'll be in touch as the book takes shape.
+				Almost there. Confirm your email and chapter one is on its way.
 			</p>
 		);
 	}
@@ -61,9 +61,9 @@ export const FollowAlongForm = component$<Props>(({ action, contactEmail }) => {
 				<button
 					type="submit"
 					disabled={isLoading}
-					class="rounded-lg border border-blue-700/40 bg-blue-600 px-5 py-3 font-medium text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+					class="group inline-flex items-center justify-center gap-2 rounded-full border border-orange-700/40 bg-orange-500 px-7 py-3 font-medium text-white shadow-[inset_0_1px_1px_var(--color-orange-300)/50%,inset_0_-1px_2px_var(--color-orange-800)/30%,0_4px_16px_var(--color-orange-500)/30%] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[inset_0_2px_2px_var(--color-orange-200)/60%,inset_0_-1px_2px_var(--color-orange-800)/30%,0_8px_24px_var(--color-orange-400)/40%] disabled:cursor-not-allowed disabled:opacity-60"
 				>
-					{isLoading ? "Sending…" : "Keep me posted"}
+					{isLoading ? "Sending…" : "Get the chapters"}
 				</button>
 			</form>
 			{status.value === "error" && (
