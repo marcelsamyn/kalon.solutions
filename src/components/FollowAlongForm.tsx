@@ -28,7 +28,7 @@ export const FollowAlongForm = component$<Props>(({ action, contactEmail }) => {
 	if (status.value === "success") {
 		return (
 			<p class="mt-6 text-base text-blue-700">
-				Almost there. Confirm your email and chapter one is on its way.
+				Almost there. Confirm your email and the Introduction is on its way.
 			</p>
 		);
 	}
@@ -61,9 +61,9 @@ export const FollowAlongForm = component$<Props>(({ action, contactEmail }) => {
 				<button
 					type="submit"
 					disabled={isLoading}
-					class="group inline-flex items-center justify-center gap-2 rounded-full border border-orange-700/40 bg-orange-500 px-7 py-3 font-medium text-white shadow-[inset_0_1px_1px_var(--color-orange-300)/50%,inset_0_-1px_2px_var(--color-orange-800)/30%,0_4px_16px_var(--color-orange-500)/30%] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[inset_0_2px_2px_var(--color-orange-200)/60%,inset_0_-1px_2px_var(--color-orange-800)/30%,0_8px_24px_var(--color-orange-400)/40%] disabled:cursor-not-allowed disabled:opacity-60"
+					class="group inline-flex items-center justify-center gap-2 rounded-lg border border-orange-700/40 bg-orange-500 px-7 py-3 font-medium text-white shadow-[inset_0_1px_1px_var(--color-orange-300)/50%,inset_0_-1px_2px_var(--color-orange-800)/30%,0_4px_16px_var(--color-orange-500)/30%] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[inset_0_2px_2px_var(--color-orange-200)/60%,inset_0_-1px_2px_var(--color-orange-800)/30%,0_8px_24px_var(--color-orange-400)/40%] disabled:cursor-not-allowed disabled:opacity-60"
 				>
-					{isLoading ? "Sending…" : "Get the chapters"}
+					{isLoading ? "Sending…" : "Get the Introduction"}
 				</button>
 			</form>
 			{status.value === "error" && (

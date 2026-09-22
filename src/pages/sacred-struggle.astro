@@ -7,17 +7,14 @@ import { FollowAlongForm } from "../components/FollowAlongForm";
 const MAILERLITE_FORM_ACTION =
     "https://assets.mailerlite.com/jsonp/124930/forms/184979158372189643/subscribe";
 const SUBTITLE = "Finding meaning in a world run by machines";
-const RELEASE_WINDOW_LABEL = "early 2027";
-const CHAPTER_CADENCE_LABEL = "every two weeks";
+const LAUNCH_DATE_LABEL = "December 10, 2026";
 
 const description =
-    "Sacred Struggle — a forthcoming book by Marcel Samyn on AI, ease, and the kinds of struggle that make us human. Get a chapter " +
-    CHAPTER_CADENCE_LABEL +
-    " until it's out.";
+    "Sacred Struggle: a book by Marcel Samyn on AI, ease, and what happens to humans when intelligence and effort become cheap. Read the Introduction now.";
 ---
 
 <Layout
-    title="Sacred Struggle — chapters before launch"
+    title="Sacred Struggle — read it before launch"
     description={description}
     ogImage="/book-cover.jpeg"
     ogType="book"
@@ -33,7 +30,7 @@ const description =
             <p
                 class="mb-4 font-sans text-xs uppercase tracking-[0.22em] text-orange-700"
             >
-                Coming {RELEASE_WINDOW_LABEL}
+                Coming {LAUNCH_DATE_LABEL}
             </p>
             <h1
                 class="font-serif text-5xl font-semibold tracking-tight text-blue-800 md:text-6xl"
@@ -46,8 +43,8 @@ const description =
                 {SUBTITLE}
             </p>
             <p class="mx-auto mt-6 max-w-md text-lg leading-relaxed text-gray-700">
-                One chapter {CHAPTER_CADENCE_LABEL} while I finish the
-                book&mdash;then one email the day it&rsquo;s released.
+                The Introduction right away, then a few pieces as I go&mdash;and
+                one email the day the book is out.
             </p>
 
             <div class="mx-auto max-w-md">
@@ -113,9 +110,9 @@ const description =
                         aria-hidden="true"></span>
                     <span
                         ><strong class="font-medium text-gray-900"
-                            >A chapter {CHAPTER_CADENCE_LABEL}</strong
-                        >, sent straight to your inbox as the book comes
-                        together.</span
+                            >The Introduction right away</strong
+                        >, then a few pieces as I go, sent straight to your
+                        inbox as the book comes together.</span
                     >
                 </li>
                 <li class="flex gap-3">
@@ -163,11 +160,13 @@ const description =
         <!-- Signup repeat -->
         <section class="mx-auto max-w-md">
             <h2 class="font-serif text-2xl font-semibold text-blue-700">
-                Get the chapters
+                Read the Introduction
             </h2>
             <p class="mt-4 text-lg leading-relaxed text-gray-700">
-                The book lands in {RELEASE_WINDOW_LABEL}. Until then,
-                you&rsquo;ll get it a chapter at a time.
+                I&rsquo;ve just finished the first version of a book about what
+                happens to humans when intelligence and effort become cheap.
+                I&rsquo;ll send you the Introduction right away, and a few pieces
+                as I take it toward publication on {LAUNCH_DATE_LABEL}.
             </p>
             <FollowAlongForm
                 action={MAILERLITE_FORM_ACTION}
