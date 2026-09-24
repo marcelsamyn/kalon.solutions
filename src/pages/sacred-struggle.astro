@@ -49,9 +49,10 @@ const description =
 
             <div class="mx-auto max-w-md">
                 <FollowAlongForm
+                    formId="hero-signup"
                     action={MAILERLITE_FORM_ACTION}
                     contactEmail="marcel@samyn.co"
-                    client:visible
+                    client:load
                 />
             </div>
         </header>
@@ -169,6 +170,7 @@ const description =
                 as I take it toward publication on {LAUNCH_DATE_LABEL}.
             </p>
             <FollowAlongForm
+                formId="footer-signup"
                 action={MAILERLITE_FORM_ACTION}
                 contactEmail="marcel@samyn.co"
                 client:visible
