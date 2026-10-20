@@ -4,7 +4,7 @@ Static company landing page built with Astro.
 
 ## Design Language
 
-- **Feel**: Paper-like warmth with subtle godray from top-left
+- **Feel**: A sheet of paper on a dark walnut desk in late-afternoon sun. The desk and light stay put while the sheet scrolls. Light shafts from the top left drift across both, with haze and dust motes (`Atmosphere.astro`)
 - **Typography**: Lora (serif) for headings, IBM Plex Sans for body
 - **Colors**: Blue (teal) for primary/headers, gray (warm) for text/backgrounds, orange for accents
 
@@ -27,7 +27,7 @@ pnpm preview    # Preview production build locally
 
 ```
 src/
-├── assets/          # Static assets (images, SVGs)
+├── assets/          # Static assets (images, SVGs, desk texture)
 ├── components/      # Astro and Qwik components
 │   └── *.astro      # Astro components
 │   └── *.tsx        # Qwik components (for interactivity)
@@ -35,6 +35,8 @@ src/
 │   └── Layout.astro # Base HTML layout
 ├── pages/           # File-based routing
 │   └── index.astro  # Homepage (/)
+├── scripts/
+│   └── atmosphere.ts # WebGL sunlight, haze, and dust over the page
 └── styles/
     └── global.css   # Tailwind imports and theme customization
 ```
