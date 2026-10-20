@@ -41,6 +41,10 @@ src/
     └── global.css   # Tailwind imports and theme customization
 ```
 
+## Social images
+
+`public/og/*.jpg` are screenshots of the dev-only `/og/<image>` routes (`src/pages/og/[image].astro`). To regenerate one, run `pnpm dev`, set the viewport to 1200×630 with reduced motion on (that draws one still frame), screenshot the route, and save it as a JPEG. Each route's `seed` fixes where the light and dust fall.
+
 ## Tailwind v4
 
 Theme customization is done in `src/styles/global.css` using the `@theme` directive:
