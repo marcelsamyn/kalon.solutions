@@ -81,7 +81,8 @@ const SUNLIGHT_GLSL = /* glsl */ `
 		float strength = 0.4 + 0.6 * noise1(x * 0.3 + 3.0 + t * 0.008);
 
 		// The window only lets a band of light through.
-		float aperture = exp(-pow(offCentre / 0.42, 2.0));
+		float spread = offCentre / 0.42;
+		float aperture = exp(-spread * spread);
 
 		// Light thins out away from the window.
 		float reach = mix(1.0, 0.45, smoothstep(0.0, 1.3, along));
@@ -105,7 +106,11 @@ const LIGHT_VERTEX = /* glsl */ `
 `;
 
 const LIGHT_FRAGMENT = /* glsl */ `
+	#ifdef GL_FRAGMENT_PRECISION_HIGH
 	precision highp float;
+	#else
+	precision mediump float;
+	#endif
 	${SUNLIGHT_GLSL}
 
 	void main() {
@@ -278,21 +283,12 @@ function link(gl: WebGLRenderingContext, vertex: string, fragment: string): WebG
 	return program;
 }
 
-/**
- * Starts the atmosphere on `canvas` and sets `data-lit` on it once the first
- * frame is drawn, so CSS can fade it in. Without WebGL the page stays plain paper.
- */
-export function startAtmosphere(canvas: HTMLCanvasElement): void {
-	const gl = canvas.getContext("webgl", {
-		antialias: false,
-		depth: false,
-		stencil: false,
-		powerPreference: "low-power",
-	});
-	if (!gl) return;
+interface Renderer {
+	draw(width: number, height: number, time: number, motes: Motes): void;
+}
 
-	const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
+/** Everything that lives on the GPU, so it can be rebuilt after a context loss. */
+function createRenderer(gl: WebGLRenderingContext): Renderer {
 	const lightProgram = link(gl, LIGHT_VERTEX, LIGHT_FRAGMENT);
 	const dustProgram = link(gl, DUST_VERTEX, DUST_FRAGMENT);
 
@@ -312,8 +308,54 @@ export function startAtmosphere(canvas: HTMLCanvasElement): void {
 		time: gl.getUniformLocation(dustProgram, "u_time"),
 	};
 
-	let width = window.innerWidth;
-	let height = window.innerHeight;
+	return {
+		draw(width, height, time, motes) {
+			gl.viewport(0, 0, width, height);
+
+			gl.disable(gl.BLEND);
+			gl.useProgram(lightProgram);
+			gl.uniform2f(light.viewport, width, height);
+			gl.uniform1f(light.time, time);
+			gl.bindBuffer(gl.ARRAY_BUFFER, corners);
+			gl.enableVertexAttribArray(light.corner);
+			gl.vertexAttribPointer(light.corner, 2, gl.FLOAT, false, 0, 0);
+			gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+			gl.disableVertexAttribArray(light.corner);
+
+			gl.enable(gl.BLEND);
+			gl.blendFunc(gl.ONE, gl.ONE);
+			gl.useProgram(dustProgram);
+			gl.uniform2f(dust.viewport, width, height);
+			gl.uniform1f(dust.time, time);
+			gl.bindBuffer(gl.ARRAY_BUFFER, dustBuffer);
+			gl.bufferData(gl.ARRAY_BUFFER, motes.attributes, gl.DYNAMIC_DRAW);
+			gl.enableVertexAttribArray(dust.mote);
+			gl.vertexAttribPointer(dust.mote, 4, gl.FLOAT, false, 0, 0);
+			gl.drawArrays(gl.POINTS, 0, motes.count);
+			gl.disableVertexAttribArray(dust.mote);
+		},
+	};
+}
+
+/**
+ * Starts the atmosphere on `canvas` and sets `data-lit` on it once the first
+ * frame is drawn, so CSS can fade it in. Without WebGL the page stays plain paper.
+ */
+export function startAtmosphere(canvas: HTMLCanvasElement): void {
+	const gl = canvas.getContext("webgl", {
+		antialias: false,
+		depth: false,
+		stencil: false,
+		powerPreference: "low-power",
+	});
+	if (!gl) return;
+
+	const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+	let renderer = createRenderer(gl);
+
+	// Sized from the canvas itself, which follows the fixed layer the page sees.
+	let width = canvas.clientWidth;
+	let height = canvas.clientHeight;
 	const motes = createMotes(width, height);
 	const pointer: Pointer = { x: -1e4, y: -1e4, vx: 0, vy: 0, lastMove: -1 };
 	let lastScrollY = window.scrollY;
@@ -327,18 +369,21 @@ export function startAtmosphere(canvas: HTMLCanvasElement): void {
 	let frame = 0;
 
 	const resize = (): void => {
-		const nextWidth = window.innerWidth;
-		const nextHeight = window.innerHeight;
-		if (nextWidth !== width || nextHeight !== height) {
+		const nextWidth = canvas.clientWidth;
+		const nextHeight = canvas.clientHeight;
+		// A new width means a real resize or a rotation, so spread the dust over
+		// the new space. A height-only change is usually a phone's toolbar
+		// sliding away mid-scroll, where moving the dust would show.
+		if (nextWidth !== width) {
 			const sx = nextWidth / width;
 			const sy = nextHeight / height;
 			for (let i = 0; i < motes.count; i++) {
 				motes.attributes[i * 4] *= sx;
 				motes.attributes[i * 4 + 1] *= sy;
 			}
-			width = nextWidth;
-			height = nextHeight;
 		}
+		width = nextWidth;
+		height = nextHeight;
 		if (canvas.width !== width || canvas.height !== height) {
 			canvas.width = width;
 			canvas.height = height;
@@ -346,32 +391,10 @@ export function startAtmosphere(canvas: HTMLCanvasElement): void {
 	};
 
 	const draw = (time: number): void => {
+		if (gl.isContextLost()) return;
 		// Resizing clears the canvas, so it happens right before drawing.
 		resize();
-		gl.viewport(0, 0, canvas.width, canvas.height);
-
-		gl.disable(gl.BLEND);
-		gl.useProgram(lightProgram);
-		gl.uniform2f(light.viewport, width, height);
-		gl.uniform1f(light.time, time);
-		gl.bindBuffer(gl.ARRAY_BUFFER, corners);
-		gl.enableVertexAttribArray(light.corner);
-		gl.vertexAttribPointer(light.corner, 2, gl.FLOAT, false, 0, 0);
-		gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-		gl.disableVertexAttribArray(light.corner);
-
-		gl.enable(gl.BLEND);
-		gl.blendFunc(gl.ONE, gl.ONE);
-		gl.useProgram(dustProgram);
-		gl.uniform2f(dust.viewport, width, height);
-		gl.uniform1f(dust.time, time);
-		gl.bindBuffer(gl.ARRAY_BUFFER, dustBuffer);
-		gl.bufferData(gl.ARRAY_BUFFER, motes.attributes, gl.DYNAMIC_DRAW);
-		gl.enableVertexAttribArray(dust.mote);
-		gl.vertexAttribPointer(dust.mote, 4, gl.FLOAT, false, 0, 0);
-		gl.drawArrays(gl.POINTS, 0, motes.count);
-		gl.disableVertexAttribArray(dust.mote);
-
+		renderer.draw(width, height, time, motes);
 		canvas.dataset.lit = "";
 	};
 
@@ -385,6 +408,11 @@ export function startAtmosphere(canvas: HTMLCanvasElement): void {
 		stepMotes(motes, dt, seconds, width, height, pointer, pendingScroll);
 		pendingScroll = 0;
 		draw(seconds + timeOffset);
+	};
+
+	const run = (): void => {
+		if (still) draw(timeOffset);
+		else frame = requestAnimationFrame(tick);
 	};
 
 	const onPointerMove = (event: PointerEvent): void => {
@@ -404,19 +432,23 @@ export function startAtmosphere(canvas: HTMLCanvasElement): void {
 		lastScrollY = window.scrollY;
 	};
 
+	// Mobile browsers drop GPU contexts when a tab goes to the background.
 	canvas.addEventListener("webglcontextlost", (event) => {
+		// Tells the browser we will rebuild, so it restores the context.
 		event.preventDefault();
 		cancelAnimationFrame(frame);
 		delete canvas.dataset.lit;
 	});
+	canvas.addEventListener("webglcontextrestored", () => {
+		renderer = createRenderer(gl);
+		run();
+	});
 
 	if (still) {
-		draw(timeOffset);
 		window.addEventListener("resize", () => draw(timeOffset));
-		return;
+	} else {
+		window.addEventListener("pointermove", onPointerMove, { passive: true });
+		window.addEventListener("scroll", onScroll, { passive: true });
 	}
-
-	window.addEventListener("pointermove", onPointerMove, { passive: true });
-	window.addEventListener("scroll", onScroll, { passive: true });
-	frame = requestAnimationFrame(tick);
+	run();
 }
