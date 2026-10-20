@@ -233,13 +233,13 @@ function stepMotes(
 			const distance = Math.hypot(dx, dy);
 			if (distance < STIR_RADIUS_PX) {
 				const falloff = (1 - distance / STIR_RADIUS_PX) ** 2;
-				vx += pointer.vx * falloff * 0.05;
-				vy += pointer.vy * falloff * 0.05;
+				vx += pointer.vx * falloff * 0.035;
+				vy += pointer.vy * falloff * 0.035;
 			}
 		}
 
-		// Scrolling drags the air near the page a little.
-		vy -= scrollDelta * 0.25 * parallax;
+		// The sliding sheet drags the air above it a little.
+		vy -= scrollDelta * 0.1 * parallax;
 
 		v[i * 2] = vx;
 		v[i * 2 + 1] = vy;
