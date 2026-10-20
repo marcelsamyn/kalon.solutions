@@ -1,0 +1,41 @@
+---
+---
+
+<canvas id="atmosphere" aria-hidden="true"></canvas>
+
+<style>
+	#atmosphere {
+		position: fixed;
+		inset: 0;
+		z-index: 60;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		mix-blend-mode: hard-light;
+		opacity: 0;
+		transition: opacity 3s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	#atmosphere[data-lit] {
+		opacity: 1;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		#atmosphere {
+			transition: none;
+		}
+	}
+
+	@media print {
+		#atmosphere {
+			display: none;
+		}
+	}
+</style>
+
+<script>
+	import { startAtmosphere } from "../scripts/atmosphere";
+
+	const canvas = document.getElementById("atmosphere");
+	if (canvas instanceof HTMLCanvasElement) startAtmosphere(canvas);
+</script>
