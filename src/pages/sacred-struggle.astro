@@ -10,15 +10,36 @@ const SUBTITLE = "Finding meaning in a world run by machines";
 const LAUNCH_DATE_LABEL = "November 11, 2026";
 
 const description =
-    "Sacred Struggle: a book by Marcel Samyn on AI, ease, and what happens to humans when intelligence and effort become cheap. Read the Introduction now.";
+    "Sacred Struggle: a book by Marcel Samyn on AI, ease, and what happens to humans when intelligence and effort become cheap.";
 ---
 
 <Layout
-    title="Sacred Struggle — read it before launch"
+    title="Sacred Struggle — a book by Marcel Samyn"
     description={description}
     ogImage="/og/sacred-struggle.jpg"
     ogType="book"
 >
+    <script is:inline>
+        (() => {
+            const launch = Date.parse("2026-11-10T23:00:00Z");
+            const update = () => {
+                const remaining = launch - Date.now();
+                document.documentElement.classList.toggle("before-book-launch", remaining > 0);
+                document.documentElement.classList.add("book-launch-ready");
+                if (remaining > 0) setTimeout(update, Math.min(remaining, 2147483647));
+            };
+            update();
+        })();
+    </script>
+    <style is:global>
+        .book-before-launch { display: none; }
+        .before-book-launch .book-before-launch { display: block; }
+        .book-after-launch { display: none; }
+        .book-launch-ready:not(.before-book-launch) .book-after-launch { display: block; }
+        .book-launch-ready .book-no-js { display: none; }
+        .store-link { color: var(--color-blue-600); text-decoration: underline; text-decoration-color: var(--color-blue-300); text-underline-offset: 3px; }
+        .store-link:hover { color: var(--color-orange-600); text-decoration-color: var(--color-orange-300); }
+    </style>
     <main class="mx-auto max-w-2xl px-6 py-20 md:py-28">
         <!-- Hero -->
         <header class="mb-20 text-center md:mb-28">
@@ -28,7 +49,7 @@ const description =
             </div>
 
             <p
-                class="mb-4 font-sans text-xs uppercase tracking-[0.22em] text-orange-700"
+                class="book-before-launch mb-4 font-sans text-xs uppercase tracking-[0.22em] text-orange-700"
             >
                 Coming {LAUNCH_DATE_LABEL}
             </p>
@@ -42,12 +63,12 @@ const description =
             >
                 {SUBTITLE}
             </p>
-            <p class="mx-auto mt-6 max-w-md text-lg leading-relaxed text-gray-700">
+            <p class="book-before-launch mx-auto mt-6 max-w-md text-lg leading-relaxed text-gray-700">
                 The Introduction right away, then a few pieces as I go&mdash;and
                 one email the day the book is out.
             </p>
 
-            <div class="mx-auto max-w-md">
+            <div class="book-before-launch mx-auto max-w-md">
                 <FollowAlongForm
                     formId="hero-signup"
                     action={MAILERLITE_FORM_ACTION}
@@ -55,6 +76,59 @@ const description =
                     client:load
                 />
             </div>
+
+            <section class="mt-14 text-left" aria-labelledby="stores-heading">
+                <h2 id="stores-heading" class="text-center font-serif text-2xl font-semibold text-blue-700">
+                    <span class="book-before-launch">Pre-order the book</span>
+                    <span class="book-after-launch">Order the book</span>
+                    <span class="book-no-js">Find the book</span>
+                </h2>
+                <p class="mt-3 text-center text-gray-600">Choose a store in your region. Availability may vary.</p>
+                <h3 class="mt-8 font-serif text-xl font-semibold text-blue-800">Paperback</h3>
+                <div class="mt-4 grid gap-6 sm:grid-cols-2">
+                    <div>
+                        <h4 class="font-serif text-lg font-semibold text-blue-800">Belgium</h4>
+                        <ul class="mt-2 space-y-2">
+                            <li><a class="store-link" href="https://www.bol.com/be/nl/p/sacred-struggle-finding-meaning-in-a-world-run-by-machines/9300000438504786/">bol</a></li>
+                            <li><a class="store-link" href="https://www.amazon.com.be/dp/9083807800">Amazon Belgium</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-serif text-lg font-semibold text-blue-800">United States</h4>
+                        <ul class="mt-2 space-y-2">
+                            <li><a class="store-link" href="https://www.amazon.com/dp/9083807800">Amazon.com</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-serif text-lg font-semibold text-blue-800">Canada</h4>
+                        <ul class="mt-2 space-y-2">
+                            <li><a class="store-link" href="https://www.amazon.ca/dp/9083807800">Amazon.ca</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-serif text-lg font-semibold text-blue-800">United Kingdom</h4>
+                        <ul class="mt-2 space-y-2">
+                            <li><a class="store-link" href="https://www.amazon.co.uk/dp/9083807800">Amazon.co.uk</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-serif text-lg font-semibold text-blue-800">Australia</h4>
+                        <ul class="mt-2 space-y-2">
+                            <li><a class="store-link" href="https://www.amazon.com.au/dp/9083807800">Amazon.com.au</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-10 border-t border-blue-200 pt-6">
+                    <h3 class="font-serif text-xl font-semibold text-blue-800">E-book</h3>
+                    <ul class="mt-3 flex flex-wrap gap-x-6 gap-y-2">
+                        <li><a class="store-link" href="https://www.bol.com/be/nl/p/sacred-struggle-ebook/9300000441539572/">bol Belgium</a></li>
+                        <li><a class="store-link" href="https://www.amazon.fr/dp/B0HLRC3D2T">Kindle Belgium</a></li>
+                        <li><a class="store-link" href="https://www.amazon.com/dp/B0HLRC3D2T">Kindle US</a></li>
+                        <li><a class="store-link" href="https://www.kobo.com/my/en/ebook/sacred-struggle-1">Kobo (select your country)</a></li>
+                        <li><a class="store-link" href="https://play.google.com/store/books/details?id=tIwiEgAAQBAJ">Google Play Books</a></li>
+                    </ul>
+                </div>
+            </section>
         </header>
 
         <!-- The hook -->
@@ -100,7 +174,7 @@ const description =
         </section>
 
         <!-- What the emails are -->
-        <section class="mb-20 md:mb-28">
+        <section class="book-before-launch mb-20 md:mb-28">
             <h2 class="font-serif text-2xl font-semibold text-blue-700">
                 What you&rsquo;ll get
             </h2>
@@ -159,7 +233,7 @@ const description =
         </section>
 
         <!-- Signup repeat -->
-        <section class="mx-auto max-w-md">
+        <section class="book-before-launch mx-auto max-w-md">
             <h2 class="font-serif text-2xl font-semibold text-blue-700">
                 Read the Introduction
             </h2>
