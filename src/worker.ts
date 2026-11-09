@@ -43,7 +43,8 @@ async function sendDeliveryEmail(env: Env, email: string, sessionId: string): Pr
     const downloadPage = new URL(THANK_YOU_PATH, BOOK_URL);
     downloadPage.searchParams.set("session_id", sessionId);
     await env.EBOOK_EMAIL.send({
-        from: "downloads@kalon.solutions",
+        from: "downloads@shop.kalon.solutions",
+        replyTo: "marcel@samyn.co",
         to: email,
         subject: "Your copy of Sacred Struggle",
         text: `Thank you for buying Sacred Struggle. Download your EPUB here:\n\n${downloadPage.href}\n\nIf you need help, email marcel@samyn.co.\n\nMarcel`,
