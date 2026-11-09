@@ -8,6 +8,10 @@ const MAILERLITE_FORM_ACTION =
     "https://assets.mailerlite.com/jsonp/124930/forms/184979158372189643/subscribe";
 const SUBTITLE = "Finding meaning in a world run by machines";
 const LAUNCH_DATE_LABEL = "November 11, 2026";
+const ebookCheckoutUrl: string | undefined = import.meta.env.SACRED_STRUGGLE_CHECKOUT_URL;
+if (ebookCheckoutUrl && new URL(ebookCheckoutUrl).protocol !== "https:") {
+    throw new Error("SACRED_STRUGGLE_CHECKOUT_URL must use HTTPS.");
+}
 
 const description =
     "Sacred Struggle: a book by Marcel Samyn on AI, ease, and what happens to humans when intelligence and effort become cheap.";
@@ -120,7 +124,17 @@ const description =
                 </div>
                 <div class="mt-10 border-t border-blue-200 pt-6">
                     <h3 class="font-serif text-xl font-semibold text-blue-800">E-book</h3>
-                    <ul class="mt-3 flex flex-wrap gap-x-6 gap-y-2">
+                    <ul class="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2">
+                        {ebookCheckoutUrl && (
+                            <li>
+                                <a
+                                    class="inline-block rounded-lg bg-blue-700 px-4 py-2 font-medium text-white transition-colors hover:bg-blue-800"
+                                    href={ebookCheckoutUrl}
+                                >
+                                    Buy EPUB directly
+                                </a>
+                            </li>
+                        )}
                         <li><a class="store-link" href="https://www.bol.com/be/nl/p/sacred-struggle-ebook/9300000441539572/">bol Belgium</a></li>
                         <li><a class="store-link" href="https://www.amazon.fr/dp/B0HLRC3D2T">Kindle Belgium</a></li>
                         <li><a class="store-link" href="https://www.amazon.com/dp/B0HLRC3D2T">Kindle US</a></li>

@@ -41,6 +41,10 @@ All commands are run from the root of the project, from a terminal:
 | `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `pnpm astro -- --help` | Get help using the Astro CLI                     |
 
+## Sacred Struggle EPUB checkout
+
+Set `SACRED_STRUGGLE_CHECKOUT_URL` in the build environment to the live HTTPS checkout URL after the EPUB is on sale. Build and deploy the site again to show **Buy EPUB directly** beside the e-book retailer links. Leave the variable unset to hide the button. The checkout provider hosts the EPUB and sends the download to buyers.
+
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
