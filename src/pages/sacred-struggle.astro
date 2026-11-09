@@ -127,11 +127,8 @@ const description =
                     <ul class="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2">
                         {ebookCheckoutUrl && (
                             <li>
-                                <a
-                                    class="inline-block rounded-lg bg-blue-700 px-4 py-2 font-medium text-white transition-colors hover:bg-blue-800"
-                                    href={ebookCheckoutUrl}
-                                >
-                                    Buy EPUB directly
+                                <a class="book-action" href={ebookCheckoutUrl}>
+                                    Buy EPUB directly <span aria-hidden="true">→</span>
                                 </a>
                             </li>
                         )}

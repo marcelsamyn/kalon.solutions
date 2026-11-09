@@ -87,6 +87,17 @@
 }
 
 @layer components {
+	.book-action {
+		@apply inline-flex items-center justify-center gap-3 rounded-full bg-orange-700 px-6 py-3 font-medium text-white;
+		@apply transition-[transform,box-shadow] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-700;
+		@apply motion-safe:hover:-translate-y-0.5;
+		box-shadow: inset 0 1px 0 rgb(255 235 196 / 0.25), 2px 5px 12px -4px rgb(89 49 24 / 0.45);
+	}
+
+	.book-action:hover {
+		box-shadow: inset 0 1px 0 rgb(255 235 196 / 0.35), 3px 8px 16px -5px rgb(89 49 24 / 0.55);
+	}
+
 	/* Dark walnut that stays put while the paper moves over it. */
 	.desk {
 		background: url("../assets/desk.svg") 0 0 / 1200px 800px;
